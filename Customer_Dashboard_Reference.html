@@ -1,0 +1,222 @@
+<title>Istanbul Mall Shoppers</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: title, KPI row, then one section per project question group; each panel names the Power BI visual + fields */
+:root{
+  --bg:#f3f3f1; --panel:#fcfcfb; --line:#e3e3df; --grid:#ecece8;
+  --fg:#16181a; --fg2:#52514e; --muted:#7a7a74;
+  --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a;
+  --h1:#cde2fb; --h2:#86b6ef; --h3:#2a78d6;
+  --display:"Public Sans", system-ui, sans-serif; --mono:"IBM Plex Mono", ui-monospace, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#121211; --panel:#1a1a19; --line:#2c2c2a; --grid:#262624; --fg:#f4f4f2; --fg2:#c3c2b7; --muted:#8f8e86;
+  --s1:#3987e5; --s2:#d95926; --s3:#199e70; --h1:#1f2a38; --h2:#184f95; --h3:#3987e5; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#121211; --panel:#1a1a19; --line:#2c2c2a; --grid:#262624; --fg:#f4f4f2; --fg2:#c3c2b7; --muted:#8f8e86;
+  --s1:#3987e5; --s2:#d95926; --s3:#199e70; --h1:#1f2a38; --h2:#184f95; --h3:#3987e5; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--display);font-size:14px;line-height:1.45}
+.wrap{max-width:1240px;margin:0 auto;padding-inline:16px;padding-block:24px 40px;display:grid;gap:16px}
+header{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px 24px}
+h1{font-size:22px;font-weight:700;margin:0;text-wrap:balance}
+.sec{margin-top:12px;padding-top:18px;border-top:1px solid var(--line)}
+.sec h1{font-size:18px}
+.sub{color:var(--fg2);margin:4px 0 0;font-size:13px}
+.src{font-size:12px;color:var(--muted)}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.kpi{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:14px 16px;display:grid;gap:4px}
+.lab{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--fg2)}
+.val{font-size:28px;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.note{font-size:12px;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:12px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:16px;display:grid;gap:10px;align-content:start;min-width:0}
+.c12{grid-column:span 12}.c8{grid-column:span 8}.c4{grid-column:span 4}.c6{grid-column:span 6}
+h2{font-size:15px;font-weight:600;margin:0}
+.q{font-size:11px;font-weight:700;color:var(--s1);letter-spacing:.04em}
+.pbi{font-size:12px;color:var(--fg2);background:var(--bg);border-radius:4px;padding:6px 8px;min-width:0}
+.pbi b{color:var(--fg)}
+.insight{font-size:13px;color:var(--fg2);margin:0}
+.insight b{color:var(--fg)}
+.bars{display:grid;gap:6px}
+.bar{display:grid;grid-template-columns:minmax(90px,34%) 1fr auto;align-items:center;gap:8px;font-size:12.5px}
+.bar .n{color:var(--fg2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bar .t{height:14px;position:relative}
+.bar .f{position:absolute;inset:0 auto 0 0;background:var(--s1);border-radius:0 4px 4px 0;min-width:2px}
+.bar .v{font-family:var(--mono);font-size:12px;font-variant-numeric:tabular-nums;min-width:64px;text-align:right}
+.bar:hover .f{filter:brightness(1.12)}
+.key{display:flex;flex-wrap:wrap;gap:14px;font-size:12.5px;color:var(--fg2)}
+.key span{display:flex;align-items:center;gap:6px}
+.sw{width:12px;height:12px;border-radius:3px;display:inline-block}
+.stack{display:grid;gap:6px}
+.srow{display:grid;grid-template-columns:minmax(80px,150px) 1fr;gap:10px;align-items:center;font-size:12.5px}
+.srow .n{color:var(--fg2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sbar{display:flex;height:18px;gap:2px}
+.sbar span{display:block;height:100%;font-size:10.5px;color:#fff;font-family:var(--mono);padding-left:4px;line-height:18px;overflow:hidden;white-space:nowrap}
+.sbar span:first-child{border-radius:3px 0 0 3px}.sbar span:last-child{border-radius:0 3px 3px 0}
+.trio{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.mini{display:grid;gap:6px}
+.mini .lab{font-size:10.5px}
+.split{display:flex;height:22px;gap:2px}
+.split span{display:block;height:100%;font-size:11px;color:#fff;font-family:var(--mono);padding-left:6px;line-height:22px;white-space:nowrap;overflow:hidden}
+.split span:first-child{border-radius:4px 0 0 4px}.split span:last-child{border-radius:0 4px 4px 0}
+.mini .nums{font-size:12px;color:var(--fg2);font-family:var(--mono)}
+.tw{overflow-x:auto}
+table{border-collapse:collapse;font-size:12px;width:100%}
+th,td{padding:5px 6px;text-align:right;font-variant-numeric:tabular-nums}
+th{font-weight:600;color:var(--fg2);font-size:11px}
+td:first-child,th:first-child{text-align:left;color:var(--fg2);white-space:nowrap}
+td.h{font-family:var(--mono)}
+svg text{fill:var(--muted);font-family:var(--display);font-size:11px}
+.donut{display:flex;flex-wrap:wrap;align-items:center;gap:16px}
+.donut svg{width:150px;height:150px;flex:none}
+.legend{display:grid;gap:8px;font-size:13px;min-width:0}
+.legend div{display:grid;grid-template-columns:12px 1fr auto;gap:8px;align-items:center}
+.legend .num{font-family:var(--mono);font-size:12px;color:var(--fg2)}
+#tip{position:fixed;pointer-events:none;background:var(--fg);color:var(--panel);font-size:12px;padding:6px 9px;border-radius:4px;z-index:9;white-space:nowrap}
+@media (max-width:900px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.c8,.c4,.c6{grid-column:span 12}}
+@media (max-width:520px){.trio{grid-template-columns:1fr}.val{font-size:22px}}
+</style>
+
+<div class="wrap">
+  <header>
+    <div><h1>Istanbul Mall Shoppers</h1>
+      <p class="sub">PRDA-04 Customer Data Analysis · 10 shopping malls · 1 Jan 2021 to 8 Mar 2023 · amounts in Turkish Lira (TL)</p></div>
+    <span class="src">Source: project_customer_segmentation.customer · 99,457 transactions</span>
+  </header>
+
+  <section class="kpis">
+    <div class="kpi"><span class="lab">Transactions</span><span class="val">99,457</span><span class="note">Card · Total Transactions</span></div>
+    <div class="kpi"><span class="lab">Items sold</span><span class="val">298,712</span><span class="note">Card · Total Quantity</span></div>
+    <div class="kpi"><span class="lab">Revenue</span><span class="val">68.55M TL</span><span class="note">Card · Total Revenue (sum of price)</span></div>
+    <div class="kpi"><span class="lab">Avg order value</span><span class="val">689 TL</span><span class="note">Card · Avg Order Value</span></div>
+  </section>
+
+  <!-- GENDER -->
+  <header class="sec"><div><h1>Gender · Q1–Q3</h1><p class="sub">Women make 6 of every 10 purchases, buy 6 of every 10 items and bring 6 of every 10 lira.</p></div></header>
+  <section class="grid">
+    <div class="panel c12">
+      <div class="key"><span><i class="sw" style="background:var(--s1)"></i>Female</span><span><i class="sw" style="background:var(--s2)"></i>Male</span></div>
+      <div class="trio" id="gtrio"></div>
+      <p class="insight"><b>Answer:</b> Female customers lead on all three measures (59.8%). Their average order value is the same as men's (688 vs 691 TL), so women do not spend more per visit; there are simply more female shoppers.</p>
+      <div class="pbi"><b>3 Donut charts</b> (or one Clustered bar) · Legend: gender · Values: <b>Total Transactions</b> (Q1), <b>Total Quantity</b> (Q2), <b>Total Revenue</b> (Q3)</div>
+    </div>
+  </section>
+
+  <!-- AGE -->
+  <header class="sec"><div><h1>Age · Q5–Q7</h1><p class="sub">Shoppers are spread evenly across ages 18 to 69.</p></div></header>
+  <section class="grid">
+    <div class="panel c4"><span class="q">Q5 · PURCHASES</span><h2>Transactions by age group</h2><div class="bars" id="aN"></div></div>
+    <div class="panel c4"><span class="q">Q6 · PRODUCTS</span><h2>Items sold by age group</h2><div class="bars" id="aQ"></div></div>
+    <div class="panel c4"><span class="q">Q7 · REVENUE</span><h2>Revenue by age group</h2><div class="bars" id="aR"></div></div>
+    <div class="panel c12">
+      <p class="insight"><b>Answer:</b> 18-29 is the top group on all three measures (23,043 purchases, 69,245 items, 15.8M TL). But it covers 12 ages while the others cover 10. Per single age, every age has about 1,900 purchases, so <b>no age is clearly stronger</b>. Average order value is about 690 TL in every group.</p>
+      <div class="pbi"><b>Clustered column chart</b> · X-axis: Age Group · Y-axis: Total Transactions / Total Quantity / Total Revenue. Extra: a <b>Line chart</b> with X-axis: age and Y-axis: Total Transactions shows the flat spread by single age.</div>
+    </div>
+  </section>
+
+  <!-- CATEGORY -->
+  <header class="sec"><div><h1>Product categories · Q4 and Q8</h1><p class="sub">Clothing is the biggest category; three categories bring almost all revenue.</p></div></header>
+  <section class="grid">
+    <div class="panel c6"><h2>Transactions by category</h2><div class="bars" id="cN"></div>
+      <div class="pbi"><b>Clustered bar</b> · Y-axis: category · X-axis: Total Transactions</div></div>
+    <div class="panel c6"><h2>Revenue by category</h2><div class="bars" id="cR"></div>
+      <div class="pbi"><b>Clustered bar</b> · Y-axis: category · X-axis: Total Revenue</div></div>
+    <div class="panel c6"><h2>Category by gender (share of each category)</h2>
+      <div class="key"><span><i class="sw" style="background:var(--s1)"></i>Female</span><span><i class="sw" style="background:var(--s2)"></i>Male</span></div>
+      <div class="stack" id="cG"></div>
+      <div class="pbi"><b>100% Stacked bar</b> · Y-axis: category · X-axis: Total Transactions · Legend: gender</div></div>
+    <div class="panel c6"><h2>Category mix by age group (% of each group's purchases)</h2>
+      <div class="tw"><table id="cA"></table></div>
+      <div class="pbi"><b>Matrix</b> · Rows: Age Group · Columns: category · Values: Total Transactions → <i>Show value as: Percent of row total</i>. Turn on <b>Conditional formatting → Background color</b>.</div></div>
+    <div class="panel c12">
+      <p class="insight"><b>Answer:</b> Clothing has 34.7% of purchases and <b>45.3% of revenue</b>. Clothing, Shoes and Technology together make <b>94.8% of revenue</b>. Food & Beverage is 14.9% of purchases but only 0.3% of revenue, because items cost 5.23 TL. Every category is about 60% female, and every age group buys the same mix, so <b>category choice does not depend on gender or age</b>.</p>
+    </div>
+  </section>
+
+  <!-- PAYMENT -->
+  <header class="sec"><div><h1>Payment method · Q9–Q10</h1><p class="sub">Cash is the most used method, and the mix is the same for every group.</p></div></header>
+  <section class="grid">
+    <div class="panel c4"><span class="q">Q10</span><h2>Payment method distribution</h2><div class="donut" id="pay"></div>
+      <div class="pbi"><b>Donut chart</b> · Legend: payment_method · Values: Total Transactions</div></div>
+    <div class="panel c8"><span class="q">Q9</span><h2>Payment mix by gender, age group, category and mall</h2>
+      <div class="key"><span><i class="sw" style="background:var(--s1)"></i>Cash</span><span><i class="sw" style="background:var(--s2)"></i>Credit Card</span><span><i class="sw" style="background:var(--s3)"></i>Debit Card</span></div>
+      <div class="stack" id="pX"></div>
+      <div class="pbi"><b>100% Stacked bar</b> (one per column) · Y-axis: gender / Age Group / category / shopping_mall · X-axis: Total Transactions · Legend: payment_method</div></div>
+    <div class="panel c12">
+      <p class="insight"><b>Answer:</b> Cash 44.7%, Credit Card 35.1%, Debit Card 20.2%. The split stays within about ±1 point for every gender, age group, category and mall, and the average order value is about 689 TL for all three methods. So <b>payment method has no real relation with the other columns</b>.</p>
+    </div>
+  </section>
+
+  <!-- EXTRA -->
+  <header class="sec"><div><h1>Extra views</h1><p class="sub">Malls and time trend, useful for suggestions.</p></div></header>
+  <section class="grid">
+    <div class="panel c6"><h2>Revenue by shopping mall</h2><div class="bars" id="mall"></div>
+      <p class="insight">Mall of Istanbul and Kanyon bring <b>40%</b> of revenue. Five malls bring about 5M TL or less each.</p>
+      <div class="pbi"><b>Clustered bar</b> · Y-axis: shopping_mall · X-axis: Total Revenue</div></div>
+    <div class="panel c6"><h2>Revenue by month</h2><div id="trend"></div>
+      <p class="insight">Revenue is flat at about 2.6M TL a month, with small dips in February. March 2023 is low only because data stops on 8 March.</p>
+      <div class="pbi"><b>Line chart</b> · X-axis: invoice_date (Year, Month hierarchy) · Y-axis: Total Revenue</div></div>
+  </section>
+</div>
+<div id="tip" hidden></div>
+
+<script>
+const fmt=n=>n.toLocaleString('en-US');const M=n=>(n/1e6).toFixed(2)+'M';
+const pct=(a,b)=>(a/b*100).toFixed(1)+'%';const $=id=>document.getElementById(id);const tip=$('tip');
+function show(e,h){tip.innerHTML=h;tip.hidden=false;move(e)}function move(e){tip.style.left=Math.min(e.clientX+12,innerWidth-tip.offsetWidth-8)+'px';tip.style.top=(e.clientY-36)+'px'}function hide(){tip.hidden=true}
+function hov(el,h){el.addEventListener('mouseenter',e=>show(e,h));el.addEventListener('mousemove',move);el.addEventListener('mouseleave',hide)}
+
+const G={Female:[59482,178659,40931802],Male:[39975,120053,27619564]};
+const AGE=[['18-29',23043,69245,15831279],['30-39',19287,57875,13245828],['40-49',19153,57517,13376514],['50-59',18931,56922,12937020],['60-69',19043,57153,13160725]];
+const CAT=[['Clothing',34487,31075685],['Cosmetics',15097,1848607],['Food & Beverage',14776,231569],['Toys',10087,1086705],['Shoes',10034,18135337],['Souvenir',4999,174437],['Technology',4996,15772050],['Books',4981,226977]];
+const CATG={Books:58.3,Clothing:59.9,Cosmetics:60.1,'Food & Beverage':59.6,Shoes:59.5,Souvenir:60.4,Technology:59.7,Toys:60.3};
+const CA={cols:['Books','Clothing','Cosmetics','Food & Bev.','Shoes','Souvenir','Technology','Toys'],rows:[['18-29',5.0,34.9,14.8,14.7,10.2,5.0,4.9,10.4],['30-39',4.9,34.4,15.3,15.2,9.9,5.1,5.3,10.0],['40-49',4.9,34.9,15.2,14.7,10.1,5.0,5.1,10.1],['50-59',5.2,34.5,15.5,14.8,10.1,5.0,4.8,10.1],['60-69',5.0,34.7,15.2,14.8,10.2,5.0,5.0,10.1]]};
+const PAY=[['Cash',44447],['Credit Card',34931],['Debit Card',20079]];
+const PX=[['Gender',[['Female',44.6,35.3,20.1],['Male',44.9,34.8,20.3]]],
+ ['Age group',[['18-29',44.8,34.9,20.2],['30-39',44.4,35.4,20.1],['40-49',44.5,35.2,20.3],['50-59',44.6,34.9,20.5],['60-69',45.1,35.2,19.8]]],
+ ['Category',[['Books',45.5,34.0,20.4],['Clothing',44.8,34.9,20.3],['Cosmetics',44.2,35.3,20.4],['Food & Beverage',44.6,35.5,19.9],['Shoes',44.6,35.4,20.0],['Souvenir',44.2,35.4,20.4],['Technology',44.7,35.1,20.2],['Toys',45.0,35.2,19.8]]],
+ ['Mall',[['Cevahir AVM',44.6,35.6,19.7],['Emaar Square Mall',43.9,35.3,20.8],['Forum Istanbul',44.1,35.4,20.5],['Istinye Park',45.4,35.0,19.7],['Kanyon',44.7,34.9,20.5],['Mall of Istanbul',44.6,35.2,20.2],['Metrocity',44.1,35.6,20.2],['Metropol AVM',44.9,34.7,20.5],['Viaport Outlet',45.4,35.0,19.6],['Zorlu Center',45.8,34.7,19.5]]]];
+const MALL=[['Mall of Istanbul',13851738],['Kanyon',13710755],['Metrocity',10249980],['Metropol AVM',6937993],['Istinye Park',6717078],['Zorlu Center',3509649],['Cevahir AVM',3433672],['Viaport Outlet',3414019],['Emaar Square Mall',3390408],['Forum Istanbul',3336074]];
+const MON=[['Jan 21',2656423],['Feb 21',2358636],['Mar 21',2618434],['Apr 21',2558826],['May 21',2662370],['Jun 21',2547240],['Jul 21',2802469],['Aug 21',2632303],['Sep 21',2530306],['Oct 21',2782418],['Nov 21',2547152],['Dec 21',2619728],['Jan 22',2656150],['Feb 22',2318201],['Mar 22',2705191],['Apr 22',2543653],['May 22',2684557],['Jun 22',2613106],['Jul 22',2749555],['Aug 22',2638239],['Sep 22',2584908],['Oct 22',2755840],['Nov 22',2447989],['Dec 22',2675438],['Jan 23',2620054],['Feb 23',2558460],['Mar 23',683721]];
+
+// gender trio
+const gl=[['Q1 · Purchases',0,fmt],['Q2 · Items sold',1,fmt],['Q3 · Revenue (TL)',2,M]];
+$('gtrio').innerHTML=gl.map(([l,i,f])=>{const a=G.Female[i],b=G.Male[i],t=a+b;
+ return `<div class="mini"><span class="lab">${l}</span><div class="split"><span style="width:${a/t*100}%;background:var(--s1)">${pct(a,t)}</span><span style="flex:1;background:var(--s2)">${pct(b,t)}</span></div><span class="nums">F ${f(a)} · M ${f(b)}</span></div>`}).join('');
+
+function bars(id,rows,o={}){const max=Math.max(...rows.map(r=>r[1]));const tot=rows.reduce((s,r)=>s+r[1],0);
+ rows.forEach(([n,v])=>{const d=document.createElement('div');d.className='bar';const lab=o.f?o.f(v):fmt(v);
+  d.innerHTML=`<span class="n" title="${n}">${n}</span><span class="t"><span class="f" style="width:${v/max*100}%"></span></span><span class="v">${lab}</span>`;
+  hov(d,`${n}: <b>${lab}</b> · ${pct(v,tot)}`);$(id).appendChild(d)})}
+bars('aN',AGE.map(r=>[r[0],r[1]]));bars('aQ',AGE.map(r=>[r[0],r[2]]));bars('aR',AGE.map(r=>[r[0],r[3]]),{f:M});
+bars('cN',CAT.map(r=>[r[0],r[1]]));bars('cR',[...CAT].sort((a,b)=>b[2]-a[2]).map(r=>[r[0],r[2]]),{f:M});
+bars('mall',MALL,{f:M});
+
+function stack(el,label,vals,cols,names){const row=document.createElement('div');row.className='srow';
+ row.innerHTML=`<span class="n" title="${label}">${label}</span><span class="sbar">${vals.map((v,i)=>`<span style="width:${v}%;background:${cols[i]}">${v>=12?v+'%':''}</span>`).join('')}</span>`;
+ row.querySelectorAll('.sbar span').forEach((s,i)=>hov(s,`${label} · ${names[i]}: <b>${vals[i]}%</b>`));el.appendChild(row)}
+Object.entries(CATG).forEach(([c,f])=>stack($('cG'),c,[f,+(100-f).toFixed(1)],['var(--s1)','var(--s2)'],['Female','Male']));
+PX.forEach(([grp,rows])=>{const h=document.createElement('div');h.className='lab';h.style.marginTop='6px';h.textContent=grp;$('pX').appendChild(h);
+ rows.forEach(r=>stack($('pX'),r[0],r.slice(1),['var(--s1)','var(--s2)','var(--s3)'],['Cash','Credit Card','Debit Card']))});
+
+// heat table
+(function(){let h='<thead><tr><th>Age</th>'+CA.cols.map(c=>`<th>${c}</th>`).join('')+'</tr></thead><tbody>';
+ CA.rows.forEach(r=>{h+=`<tr><td>${r[0]}</td>`+r.slice(1).map(v=>{const bg=v>30?'var(--h3)':v>12?'var(--h2)':'var(--h1)';const fg=v>30?'#fff':'var(--fg)';return `<td class="h" style="background:${bg};color:${fg}">${v.toFixed(1)}%</td>`}).join('')+'</tr>'});
+ $('cA').innerHTML=h+'</tbody>'})();
+
+// payment donut
+(function(){const cols=['var(--s1)','var(--s2)','var(--s3)'];const tot=PAY.reduce((s,r)=>s+r[1],0);const R=66,r=48,c=75;let a=-Math.PI/2,ps='';
+ PAY.forEach(([n,v],i)=>{const sw=v/tot*2*Math.PI,a0=a+.01,a1=a+sw-.01;a+=sw;const P=(t,rad)=>[c+rad*Math.cos(t),c+rad*Math.sin(t)];const L=a1-a0>Math.PI?1:0;
+  const [x0,y0]=P(a0,R),[x1,y1]=P(a1,R),[x2,y2]=P(a1,r),[x3,y3]=P(a0,r);ps+=`<path d="M${x0} ${y0}A${R} ${R} 0 ${L} 1 ${x1} ${y1}L${x2} ${y2}A${r} ${r} 0 ${L} 0 ${x3} ${y3}Z" fill="${cols[i]}" data-i="${i}"/>`});
+ $('pay').innerHTML=`<svg viewBox="0 0 150 150" role="img" aria-label="Payment method split">${ps}<text x="75" y="72" text-anchor="middle" style="font-size:15px;font-weight:700;fill:var(--fg)">99,457</text><text x="75" y="88" text-anchor="middle">purchases</text></svg><div class="legend">${PAY.map(([n,v],i)=>`<div><span class="sw" style="background:${cols[i]}"></span><span>${n}</span><span class="num">${pct(v,tot)}</span></div>`).join('')}</div>`;
+ $('pay').querySelectorAll('path').forEach(p=>{const [n,v]=PAY[p.dataset.i];hov(p,`${n}: <b>${fmt(v)}</b> · ${pct(v,tot)}`)})})();
+
+// trend
+(function(){const W=600,H=220,L=40,Rt=30,T=12,B=26,n=MON.length,ymax=3e6;const x=i=>L+i*(W-L-Rt)/(n-1),y=v=>T+(1-v/ymax)*(H-T-B);
+ let g='';[0,1e6,2e6,3e6].forEach(t=>g+=`<line x1="${L}" x2="${W-Rt}" y1="${y(t)}" y2="${y(t)}" stroke="var(--grid)"/><text x="${L-6}" y="${y(t)+4}" text-anchor="end">${t/1e6}M</text>`);
+ MON.forEach((m,i)=>{if(i%6===0||i===n-1)g+=`<text x="${x(i)}" y="${H-8}" text-anchor="middle">${m[0]}</text>`});
+ const pts=MON.map((m,i)=>`${x(i)},${y(m[1])}`).join(' ');
+ $('trend').innerHTML=`<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Revenue by month">${g}<polyline points="${pts}" fill="none" stroke="var(--s1)" stroke-width="2" stroke-linejoin="round"/>${MON.map((m,i)=>`<circle cx="${x(i)}" cy="${y(m[1])}" r="6" fill="transparent" data-i="${i}"/>`).join('')}</svg>`;
+ $('trend').querySelectorAll('circle').forEach(c=>{const m=MON[c.dataset.i];hov(c,`${m[0]}: <b>${M(m[1])} TL</b>`)})})();
+</script>

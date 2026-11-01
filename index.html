@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Customer Data Analysis · Akram Ali</title>
+  <meta name="description" content="Power BI and Tableau analysis of 99,457 shopping transactions in 10 Istanbul malls: gender, age, categories, payment methods and nine suggestions.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<input type="checkbox" id="theme" class="sr" aria-label="Dark theme">
+<div class="page">
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="#top"><i></i>akram.data</a>
+    <nav aria-label="Sections">
+      <a href="#brief">Brief</a><a href="#data">Data</a><a href="#dashboard">Dashboard</a><a href="#findings">Findings</a><a href="#actions">Suggestions</a><a href="#files">Files</a>
+    </nav>
+    <label class="theme-btn" for="theme" title="Switch colour theme">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+    </label>
+  </div>
+</header>
+
+<main id="top">
+  <div class="wrap hero">
+    <div>
+      <span class="pill"><i></i>Client project · Power BI + Tableau · October 2026</span>
+      <h1>Customer Data Analysis: <em>who shops in 10 Istanbul malls, and what they spend.</em></h1>
+      <p class="lede">I analysed <b>99,457 transactions</b> from January 2021 to March 2023, answered <b>10 business questions</b> about gender, age, categories and payment, built the dashboard in <b>Power BI and Tableau</b>, and gave the company nine suggestions.</p>
+      <div class="ctas">
+        <a class="btn primary" href="#dashboard">See the dashboards <span aria-hidden="true">→</span></a>
+        <a class="btn ghost" href="Customer_Dashboard_Reference.html">Interactive dashboard</a>
+      </div>
+      <div class="tags">
+        <span class="tag">MySQL</span><span class="tag">Excel</span><span class="tag">Power BI</span><span class="tag">Tableau</span><span class="tag">Power Query</span><span class="tag">DAX</span>
+      </div>
+    </div>
+
+    <div class="dcard" aria-label="Key numbers from the analysis">
+      <input type="radio" name="view" id="v-cust" class="sr" checked>
+      <input type="radio" name="view" id="v-reo" class="sr">
+      <input type="radio" name="view" id="v-bask" class="sr">
+      <div class="dcard-head">
+        <div class="tabs">
+          <label class="tab" for="v-cust">Categories</label>
+          <label class="tab" for="v-reo">Malls</label>
+          <label class="tab" for="v-bask">Payment</label>
+        </div>
+        <span class="code">PRDA-04</span>
+      </div>
+
+      <div class="view view-cust">
+        <div class="kpis">
+          <div class="kpi"><small>Revenue</small><strong>68.55M</strong></div>
+          <div class="kpi"><small>Top 3 share</small><strong>94.8%</strong></div>
+          <div class="kpi"><small>Avg order</small><strong>689 TL</strong></div>
+        </div>
+        <div class="bars">
+          <div class="bars-title">Share of revenue by category (% of 68.55M TL)</div>
+          <div class="brow lead"><span class="lbl">Clothing</span><span class="track"><span class="fill" style="width:100%"></span></span><span class="val">45.3%</span></div>
+          <div class="brow"><span class="lbl">Shoes</span><span class="track"><span class="fill" style="width:58.4%"></span></span><span class="val">26.5%</span></div>
+          <div class="brow"><span class="lbl">Technology</span><span class="track"><span class="fill" style="width:50.8%"></span></span><span class="val">23.0%</span></div>
+          <div class="brow low"><span class="lbl">Other five</span><span class="track"><span class="fill" style="width:11.5%"></span></span><span class="val">5.2%</span></div>
+          <p class="takeaway"><b>Takeaway:</b> three categories bring 95% of revenue; food, cosmetics, toys, books and souvenirs bring 5%.</p>
+        </div>
+      </div>
+
+      <div class="view view-reo">
+        <div class="kpis">
+          <div class="kpi"><small>Malls</small><strong>10</strong></div>
+          <div class="kpi"><small>Top 2 share</small><strong>40.2%</strong></div>
+          <div class="kpi"><small>Per month</small><strong>2.6M</strong></div>
+        </div>
+        <div class="bars">
+          <div class="bars-title">Revenue by mall (million TL)</div>
+          <div class="brow lead"><span class="lbl">Mall of Istanbul</span><span class="track"><span class="fill" style="width:100%"></span></span><span class="val">13.85</span></div>
+          <div class="brow lead"><span class="lbl">Kanyon</span><span class="track"><span class="fill" style="width:99.0%"></span></span><span class="val">13.71</span></div>
+          <div class="brow"><span class="lbl">Metrocity</span><span class="track"><span class="fill" style="width:74.0%"></span></span><span class="val">10.25</span></div>
+          <div class="brow low"><span class="lbl">Forum Istanbul</span><span class="track"><span class="fill" style="width:24.1%"></span></span><span class="val">3.34</span></div>
+          <p class="takeaway"><b>Takeaway:</b> two malls bring 40% of revenue; the five smallest bring about 3.4M TL each.</p>
+        </div>
+      </div>
+
+      <div class="view view-bask">
+        <div class="kpis">
+          <div class="kpi"><small>Transactions</small><strong>99,457</strong></div>
+          <div class="kpi"><small>Paid by card</small><strong>55.3%</strong></div>
+          <div class="kpi"><small>Female share</small><strong>59.8%</strong></div>
+        </div>
+        <div class="bars">
+          <div class="bars-title">Transactions by payment method (% of 99,457)</div>
+          <div class="brow lead"><span class="lbl">Cash</span><span class="track"><span class="fill" style="width:100%"></span></span><span class="val">44.7%</span></div>
+          <div class="brow"><span class="lbl">Credit card</span><span class="track"><span class="fill" style="width:78.5%"></span></span><span class="val">35.1%</span></div>
+          <div class="brow"><span class="lbl">Debit card</span><span class="track"><span class="fill" style="width:45.2%"></span></span><span class="val">20.2%</span></div>
+          <p class="takeaway"><b>Takeaway:</b> the same 45 / 35 / 20 split holds for every gender, age group, category and mall.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 01 brief -->
+  <section class="block" id="brief">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><div class="eyebrow">01 / brief</div><h2>Who are the customers, what do they buy, and how do they pay?</h2></div>
+        <p>The company runs 10 shopping malls in Istanbul. It wanted to know which customer groups bring the most sales and revenue, and how to use that in its marketing. The brief had 11 tasks, grouped into four themes plus a dashboard.</p>
+      </div>
+      <div class="stat-row">
+        <div class="stat"><strong>99,457</strong><span>transactions analysed</span></div>
+        <div class="stat"><strong>68.55M</strong><span>revenue in Turkish Lira</span></div>
+        <div class="stat"><strong>10</strong><span>shopping malls</span></div>
+        <div class="stat"><strong>26</strong><span>months, Jan 2021 – Mar 2023</span></div>
+      </div>
+      <div class="qgroups">
+        <div class="qg"><h3>Gender</h3><div class="qs">Q1 · Q2 · Q3</div><p>Purchases, items sold and revenue for female and male customers.</p></div>
+        <div class="qg"><h3>Age</h3><div class="qs">Q5 · Q6 · Q7</div><p>The same three measures across five age groups from 18 to 69.</p></div>
+        <div class="qg"><h3>Categories</h3><div class="qs">Q4 · Q8</div><p>How the eight product categories spread across every other column.</p></div>
+        <div class="qg"><h3>Payment</h3><div class="qs">Q9 · Q10 · Q11</div><p>Payment method mix, its link to other columns, and the final dashboard.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 data -->
+  <section class="block" id="data">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><div class="eyebrow">02 / data</div><h2>One table, ten columns, and one trap in the price column.</h2></div>
+        <p>The data came from the MySQL table <span class="mono">project_customer_segmentation.customer</span>. Each row is one transaction. I downloaded all 99,457 rows (MySQL Workbench's 1,000-row limit switched off) and checked them before building anything.</p>
+      </div>
+
+      <div class="callout">
+        <div class="callout-k">Key data finding</div>
+        <div class="callout-body">
+          <h3>Price is already the transaction total.</h3>
+          <p>The brief describes <span class="mono">price</span> as the price per unit, but one Clothing item costs 300.08 TL and a 5-item Clothing purchase is recorded as 1,500.40 TL. Multiplying quantity × price would count quantity twice.</p>
+        </div>
+        <div class="callout-nums">
+          <div><small>Quantity × price</small><s>251.5M TL</s></div>
+          <div><small>Correct revenue</small><strong>68.55M TL</strong></div>
+        </div>
+      </div>
+
+      <div class="two">
+        <div class="panel">
+          <div class="panel-h"><span>Columns</span><span>10 attributes</span></div>
+          <div class="tscroll">
+            <table>
+              <thead><tr><th>Column</th><th>Meaning</th></tr></thead>
+              <tbody>
+                <tr><td><span class="m">invoice_no</span></td><td>Unique invoice number (I + 6 digits)</td></tr>
+                <tr><td><span class="m">customer_id</span></td><td>Customer number (C + 6 digits)</td></tr>
+                <tr><td><span class="m">gender</span></td><td>Female or Male</td></tr>
+                <tr><td><span class="m">age</span></td><td>18 to 69</td></tr>
+                <tr><td><span class="m">category</span></td><td>8 product categories</td></tr>
+                <tr><td><span class="m">quantity</span></td><td>1 to 5 items per transaction</td></tr>
+                <tr><td><span class="m">price</span></td><td>Amount paid in TL (the transaction total)</td></tr>
+                <tr><td><span class="m">payment_method</span></td><td>Cash, Credit Card or Debit Card</td></tr>
+                <tr><td><span class="m">invoice_date</span></td><td>Date of the transaction</td></tr>
+                <tr><td><span class="m">shopping_mall</span></td><td>One of 10 malls</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-h"><span>Data checks</span><span>6 checks</span></div>
+          <div class="tscroll">
+            <table>
+              <thead><tr><th>Check</th><th>Result and action</th></tr></thead>
+              <tbody>
+                <tr><td>Missing values</td><td>None in any column. No action needed.</td></tr>
+                <tr><td>Duplicates</td><td>No duplicate rows or invoice numbers.</td></tr>
+                <tr><td>Data types</td><td>Dates, numbers and text read correctly; confirmed in Power Query.</td></tr>
+                <tr><td>Price column</td><td>One unit price per category, and price = quantity × unit price. Used price directly as Revenue.</td></tr>
+                <tr><td>Customer ID</td><td>Every customer appears once, so I counted transactions, not repeat customers.</td></tr>
+                <tr><td>Date range</td><td>March 2023 has only 8 days. Noted on the monthly trend chart.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel" style="margin-top:24px">
+        <div class="panel-h"><span>New columns and measures</span><span>Power Query · DAX</span></div>
+<pre class="dax"><span class="c">-- Columns</span>
+<span class="n">Revenue</span>     = customer[price]                 <span class="c">-- already the transaction total</span>
+<span class="n">Unit Price</span>  = DIVIDE(customer[Revenue], customer[quantity])
+<span class="n">Age Group</span>   = 18-29 · 30-39 · 40-49 · 50-59 · 60-69
+<span class="n">Year, Month</span> = from invoice_date, for the trend chart
+
+<span class="c">-- Measures</span>
+<span class="n">Total Transactions</span> = COUNTROWS(customer)
+<span class="n">Total Quantity</span>     = SUM(customer[quantity])
+<span class="n">Total Revenue</span>      = SUM(customer[Revenue])
+<span class="n">Avg Order Value</span>    = DIVIDE([Total Revenue], [Total Transactions])</pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 dashboard -->
+  <section class="block" id="dashboard">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><div class="eyebrow">03 / dashboard</div><h2>Three pages in Power BI, rebuilt in Tableau.</h2></div>
+        <p>The Power BI report covers the overview, age and category, and payment relations. I then rebuilt the dashboard in Tableau. Pick a page to see the screen and what it shows.</p>
+      </div>
+      <input type="radio" name="page" id="p-pb1" class="sr" checked>
+      <input type="radio" name="page" id="p-pb2" class="sr">
+      <input type="radio" name="page" id="p-pb3" class="sr">
+      <input type="radio" name="page" id="p-tb1" class="sr">
+      <input type="radio" name="page" id="p-tb2" class="sr">
+      <div class="gallery-tabs">
+        <label class="tab" for="p-pb1">Overview</label>
+        <label class="tab" for="p-pb2">Age and category</label>
+        <label class="tab" for="p-pb3">Payment relations</label>
+        <label class="tab" for="p-tb1">Tableau overview</label>
+        <label class="tab" for="p-tb2">Payment and malls</label>
+      </div>
+      <figure class="shot shot-pb1" style="margin:0">
+        <div class="shot-frame"><img src="Overview.png">
+        <figcaption class="shot-cap">
+          <div class="pg">Power BI · page 1<b>Overview</b><span class="qs">Q1 · Q2 · Q3 · Q10</span></div>
+          <ul>
+            <li><b>99.46K transactions</b>, 298.71K items, 68.55M TL revenue, 689 TL average order.</li>
+            <li>Monthly revenue stays near 2.6M TL; the drop at the end is March 2023, which has only 8 days.</li>
+            <li>Donuts show the 60 / 40 female–male split on items, revenue and transactions, and the 45 / 35 / 20 payment mix.</li>
+          </ul>
+        </figcaption>
+      </figure>
+      <figure class="shot shot-pb2" style="margin:0">
+       <div class="shot-frame"><img src="Age and category.png"> 
+        <figcaption class="shot-cap">
+          <div class="pg">Power BI · page 2<b>Age and category</b><span class="qs">Q4 · Q5 · Q6 · Q7 · Q8</span></div>
+          <ul>
+            <li><b>18-29</b> leads on transactions, items and revenue because it covers 12 ages.</li>
+            <li><b>Clothing</b> leads on revenue (31.08M TL), followed by Shoes and Technology.</li>
+            <li>Category by gender shows every category is about 60% female.</li>
+          </ul>
+        </figcaption>
+      </figure>
+      <figure class="shot shot-pb3" style="margin:0">
+        <div class="shot-frame"><img src="Payment relations.png">
+        <figcaption class="shot-cap">
+          <div class="pg">Power BI · page 3<b>Payment relations</b><span class="qs">Q9</span></div>
+          <ul>
+            <li>Payment method by gender, age group, mall and category.</li>
+            <li>The <b>cash / credit / debit</b> split looks the same in every bar.</li>
+            <li>The matrix gives exact transaction counts by age group and category.</li>
+          </ul>
+        </figcaption>
+      </figure>
+      <figure class="shot shot-tb1" style="margin:0">
+        <div class="shot-frame"><img src="Tableau overview.png">
+        <figcaption class="shot-cap">
+          <div class="pg">Tableau · page 1<b>Tableau overview</b><span class="qs">Q1–Q8</span></div>
+          <ul>
+            <li>The same KPIs rebuilt in Tableau: 689 TL average order, 99,457 customers, 68.55M TL.</li>
+            <li>Age group and gender against transactions, quantity and revenue.</li>
+            <li>Category totals, payment mix by age group and payment mix by mall.</li>
+          </ul>
+        </figcaption>
+      </figure>
+      <figure class="shot shot-tb2" style="margin:0">
+        <div class="shot-frame"><img src="Payment and malls.png">
+        <figcaption class="shot-cap">
+          <div class="pg">Tableau · page 2<b>Payment and malls</b><span class="qs">Q9 · Q10</span></div>
+          <ul>
+            <li>Payment method by gender and by category.</li>
+            <li><b>Mall of Istanbul</b> (13.85M TL) and <b>Kanyon</b> (13.71M TL) lead revenue.</li>
+            <li>A pie chart of the overall payment split.</li>
+          </ul>
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- 04 findings -->
+  <section class="block" id="findings">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><div class="eyebrow">04 / findings</div><h2>Customer groups behave alike. Revenue depends on a few categories and malls.</h2></div>
+        <p>Monthly revenue held steady at about 2.6M TL, and 2022 (31.37M TL) almost matched 2021 (31.32M TL). February dips slightly every year.</p>
+      </div>
+      <div class="findings">
+        <div class="finding"><div class="big">59.8%</div><h3>Women make 6 in 10 purchases</h3><p>Women made 59,482 transactions, bought 178,659 items and spent 40.93M TL. Their average order is the same as men’s (688 vs 691 TL): there are simply more female shoppers.</p></div>
+        <div class="finding"><div class="big">≈1,900</div><h3>All ages shop about equally</h3><p>Every single age from 18 to 69 has 1,830–2,057 transactions. The 18-29 group leads (23,043 purchases, 15.83M TL) only because it covers 12 ages instead of 10.</p></div>
+        <div class="finding"><div class="big">94.8%</div><h3>Three categories bring the revenue</h3><p>Clothing (31.08M TL), Shoes (18.14M TL) and Technology (15.77M TL). Food &amp; Beverage is 15% of purchases but 0.3% of revenue: one item costs 5.23 TL against 1,050 TL for Technology.</p></div>
+        <div class="finding"><div class="big">45 / 35 / 20</div><h3>Everyone pays the same way</h3><p>Cash, credit and debit split the same way for every gender, age group, category and mall, within about 1.5 points. Average order is 687–691 TL for each method.</p></div>
+      </div>
+
+      <div class="panel" style="margin-top:24px">
+        <div class="panel-h"><span>Every age group buys the same mix (Q4 · Q8)</span><span>% of each group’s purchases</span></div>
+        <div class="tscroll">
+          <table class="mix">
+            <thead><tr><th>Age group</th><th class="num">Clothing</th><th class="num">Cosmetics</th><th class="num">Food &amp; Bev.</th><th class="num">Shoes</th><th class="num">Toys</th><th class="num">Books</th><th class="num">Souvenir</th><th class="num">Tech</th></tr></thead>
+            <tbody>
+              <tr><td>18-29</td><td class="num h3">34.9%</td><td class="num h2">14.8%</td><td class="num h2">14.7%</td><td class="num h1">10.2%</td><td class="num h1">10.4%</td><td class="num">5.0%</td><td class="num">5.0%</td><td class="num">4.9%</td></tr>
+              <tr><td>30-39</td><td class="num h3">34.4%</td><td class="num h2">15.3%</td><td class="num h2">15.2%</td><td class="num h1">9.9%</td><td class="num h1">10.0%</td><td class="num">4.9%</td><td class="num">5.1%</td><td class="num">5.3%</td></tr>
+              <tr><td>40-49</td><td class="num h3">34.9%</td><td class="num h2">15.2%</td><td class="num h2">14.7%</td><td class="num h1">10.1%</td><td class="num h1">10.1%</td><td class="num">4.9%</td><td class="num">5.0%</td><td class="num">5.1%</td></tr>
+              <tr><td>50-59</td><td class="num h3">34.5%</td><td class="num h2">15.5%</td><td class="num h2">14.8%</td><td class="num h1">10.1%</td><td class="num h1">10.1%</td><td class="num">5.2%</td><td class="num">5.0%</td><td class="num">4.8%</td></tr>
+              <tr><td>60-69</td><td class="num h3">34.7%</td><td class="num h2">15.2%</td><td class="num h2">14.8%</td><td class="num h1">10.2%</td><td class="num h1">10.1%</td><td class="num">5.0%</td><td class="num">5.0%</td><td class="num">5.0%</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="model-note" style="padding:0 18px 16px">Each category’s share changes by less than 1 point between age groups. Every category is 58–60% female, and Clothing is 34–35% of purchases in every mall.</p>
+      </div>
+
+      <details class="qa">
+        <summary>All 10 questions and answers <span>show table</span></summary>
+        <div class="tscroll">
+          <table>
+            <thead><tr><th>Q</th><th>Question</th><th>Answer</th></tr></thead>
+            <tbody>
+              <tr><td>Q1</td><td>Shopping distribution by gender</td><td>Female 59,482 (59.8%), male 39,975 (40.2%). Women make 6 of every 10 purchases.</td></tr>
+              <tr><td>Q2</td><td>Which gender bought more products?</td><td>Women: 178,659 items vs 120,053. Both buy about 3 items per transaction.</td></tr>
+              <tr><td>Q3</td><td>Which gender generated more revenue?</td><td>Women: 40.93M TL (59.7%) vs 27.62M TL. Average order 688 vs 691 TL.</td></tr>
+              <tr><td>Q4</td><td>Purchase categories vs other columns</td><td>Clothing is 34.7% of transactions and 45.3% of revenue. The category mix does not change with gender, age, payment or mall.</td></tr>
+              <tr><td>Q5</td><td>Shopping distribution by age</td><td>18-29: 23,043; other groups about 19,000 each. Even across ages once group width is allowed for.</td></tr>
+              <tr><td>Q6</td><td>Which age group bought more products?</td><td>18-29: 69,245 items, because it covers 12 ages. Per year of age, all groups are similar.</td></tr>
+              <tr><td>Q7</td><td>Which age group generated more revenue?</td><td>18-29: 15.83M TL. Average order is 683–698 TL in every group.</td></tr>
+              <tr><td>Q8</td><td>Purchase categories vs other columns</td><td>Every age group buys the same mix within 1 point (see table above).</td></tr>
+              <tr><td>Q9</td><td>Does payment method relate to other columns?</td><td>No. About 45% cash, 35% credit and 20% debit in every group, within 1.5 points.</td></tr>
+              <tr><td>Q10</td><td>Distribution of payment method</td><td>Cash 44,447 (44.7%), credit card 34,931 (35.1%), debit card 20,079 (20.2%).</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <!-- 05 suggestions -->
+  <section class="block" id="actions">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><div class="eyebrow">05 / suggestions</div><h2>Nine suggestions for the company.</h2></div>
+        <p>Protect the high-value categories and malls, grow the male customer base, and start collecting the data that would show repeat customers.</p>
+      </div>
+      <div class="panel">
+        <div class="tscroll">
+          <table class="actions">
+            <thead><tr><th>#</th><th>Suggestion</th><th>Why</th></tr></thead>
+            <tbody>
+              <tr><td>1</td><td><b>Focus on the high-value categories</b><span>Keep Clothing, Shoes and Technology well stocked, give them the best space, run promotions on them.</span><br><span class="phase protect">Revenue</span></td><td>They bring 95% of revenue.</td></tr>
+              <tr><td>2</td><td><b>Use low-price categories to bring people in</b><span>Bundles or vouchers that lead from Food &amp; Beverage and Cosmetics to Clothing and Shoes.</span><br><span class="phase">Cross-sell</span></td><td>They are bought often but earn little.</td></tr>
+              <tr><td>3</td><td><b>Grow the male customer base</b><span>Campaigns aimed at men.</span><br><span class="phase">Marketing</span></td><td>Men are 40% of shoppers but spend as much per order as women.</td></tr>
+              <tr><td>4</td><td><b>Keep marketing broad across ages</b><span>Use age to choose the channel, such as social media for younger shoppers, not the offer.</span><br><span class="phase">Marketing</span></td><td>All ages shop and spend the same.</td></tr>
+              <tr><td>5</td><td><b>Start a loyalty programme</b><span>A card or app that tracks repeat visits and allows personal offers.</span><br><span class="phase">Retention</span></td><td>Customers can’t be followed over time, and 45% pay in anonymous cash.</td></tr>
+              <tr><td>6</td><td><b>Encourage card and digital payments</b><span>Small card or app rewards.</span><br><span class="phase">Operations</span></td><td>Faster checkout and better customer data; cards are already 55%.</td></tr>
+              <tr><td>7</td><td><b>Learn from the top malls</b><span>Study Mall of Istanbul and Kanyon (brands, location, events) and apply it to the five smaller malls.</span><br><span class="phase protect">Revenue</span></td><td>Two malls bring 40% of revenue; five bring about 3.4M TL each.</td></tr>
+              <tr><td>8</td><td><b>Plan for February</b><span>A seasonal campaign to fill the gap.</span><br><span class="phase">Marketing</span></td><td>Revenue dips slightly every February.</td></tr>
+              <tr><td>9</td><td><b>Improve the data</b><span>Correct the price column description and keep adding data after March 2023.</span><br><span class="phase">Data</span></td><td>Price is a total, not a unit price; trends need newer data.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 limits -->
+  <section class="block" id="limits">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><div class="eyebrow">06 / caveats and conclusion</div><h2>What the data can’t tell us yet.</h2></div>
+        <p>The 10 malls made 99,457 sales worth 68.55M TL. Women make about 60% of purchases, all ages shop alike, and revenue depends on three categories and two malls.</p>
+      </div>
+      <div class="limits">
+        <div class="panel">
+          <div class="panel-h"><span>Limitations</span></div>
+          <ul>
+            <li>Every <b>customer_id appears once</b>, so repeat-customer behaviour can’t be measured.</li>
+            <li><b>March 2023 has only 8 days</b>, so its low revenue is not a real drop.</li>
+            <li>The brief’s description of <span class="mono">price</span> is wrong: it is the <b>transaction total</b>.</li>
+            <li>Age groups differ in width: <b>18-29 covers 12 ages</b>, the others 10.</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <div class="panel-h"><span>Biggest opportunities</span></div>
+          <ol>
+            <li>Protect and grow <b>Clothing, Shoes and Technology</b>.</li>
+            <li>Attract more <b>male shoppers</b>, who spend as much per order.</li>
+            <li>Use low-price categories to <b>drive cross-selling</b>.</li>
+            <li>Introduce a <b>loyalty programme</b> to understand and keep customers.</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 files -->
+  <section class="block" id="files">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><div class="eyebrow">07 / project files</div><h2>Everything behind this page.</h2></div>
+        <p>The brief, the data, the dashboards, the report and the presentation, in the order the project was done.</p>
+      </div>
+      <div class="files">
+        <a class="file" href="Customer_Data_Analysis_Brief.docx"><span class="ext">MD</span><span class="fname"><b>Project brief</b><small>1_Brief · the 11 tasks and columns</small></span><span class="go" aria-hidden="true">→</span></a>
+        <a class="file" href="Customer.xlsx"><span class="ext">XLSX</span><span class="fname"><b>Customer data</b><small>2_Data · 99,457 rows</small></span><span class="go" aria-hidden="true">→</span></a>
+        <a class="file" href="Customer_Dashboard_Reference.html"><span class="ext">HTML</span><span class="fname"><b>Interactive dashboard</b><small>3_Dashboard · every question in the browser</small></span><span class="go" aria-hidden="true">→</span></a>
+        <a class="file" href="3_Dashboard/Screenshots/Page1_PowerBI_Overview.png"><span class="ext">PNG</span><span class="fname"><b>Dashboard screenshots</b><small>3_Dashboard/Screenshots · 5 pages</small></span><span class="go" aria-hidden="true">→</span></a>
+        <a class="file" href="Customer_Data_Analysis_Report.docx"><span class="ext">PDF</span><span class="fname"><b>Analysis report</b><small>4_Report · 8 pages</small></span><span class="go" aria-hidden="true">→</span></a>
+        <a class="file" href="Customer_Data_Analysis_Report.pdf"><span class="ext">DOCX</span><span class="fname"><b>Analysis report (Word)</b><small>4_Report · editable</small></span><span class="go" aria-hidden="true">→</span></a>
+        <a class="file" href="Customer_Data_Analysis_Presentation.pdf"><span class="ext">PDF</span><span class="fname"><b>Presentation</b><small>5_Presentation · 19 slides</small></span><span class="go" aria-hidden="true">→</span></a>
+        <a class="file" href="Customer_Data_Analysis_Presentation.pptx"><span class="ext">PPTX</span><span class="fname"><b>Presentation (PowerPoint)</b><small>5_Presentation · editable slides</small></span><span class="go" aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Akram Ali · Data analyst · Pune</span>
+    <span>Customer Data Analysis · PRDA-04 · Power BI + Tableau</span>
+  </div>
+</footer>
+
+</div>
+</body>
+</html>
